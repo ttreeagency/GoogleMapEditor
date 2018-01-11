@@ -1,0 +1,19 @@
+{
+    "description": "Google Map Inspector Editors for Neos CMS",
+    "type": "neos-package",
+    "license": "MIT",
+    "name": "ttree/googlemapeditor",
+    "require": {
+        "neos/ui": "^1.0.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ttree\\GoogleMapEditor\\": "Classes/"
+        }
+    },
+    "extra": {
+        "neos": {
+            "package-key": "Ttree.GoogleMapEditor"
+        }
+    }
+}

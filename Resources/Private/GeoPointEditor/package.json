@@ -1,0 +1,22 @@
+{
+    "description": "ttree-googlemapeditor-geopoint",
+    "license": "GNU GPLv3",
+    "private": true,
+    "scripts": {
+        "build": "neos-react-scripts build",
+        "watch": "neos-react-scripts watch"
+    },
+    "devDependencies": {
+        "@neos-project/neos-ui-extensibility": "1.0.4",
+        "@neos-project/react-ui-components": "^1.0.4"
+    },
+    "neos": {
+        "buildTargetDirectory": "../../Public/GeoPointEditor"
+    },
+    "dependencies": {
+        "geopoint": "^1.0.1",
+        "lodash.upperfirst": "^4.3.1",
+        "react-google-maps": "^9.4.5",
+        "recompose": "^0.26.0"
+    }
+}

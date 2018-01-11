@@ -1,0 +1,25 @@
+Neos:
+  Neos:
+    Ui:
+      resources:
+        javascript:
+          'Ttree.GoogleMapEditor:GeoPointEditor':
+            resource: resource://Ttree.GoogleMapEditor/Public/GeoPointEditor/Plugin.js
+
+    userInterface:
+      inspector:
+        dataTypes:
+          Ttree\GoogleMapEditor\GeoPoint:
+            typeConverter: Neos\Flow\Property\TypeConverter\ArrayConverter
+            editor: Ttree.GoogleMapEditor/Inspector/Editors/GeoPointEditor
+            editorOptions:
+              url: https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places
+              key: use-a-valid-google-map-api-key
+              mapDefaultOptions:
+                scrollwheel: false
+                navigationControl: false
+                mapTypeControl: false
+                streetViewControl: false
+                draggableCursor: default
+                draggingCursor: pointer
+            defaultValue: {  }
