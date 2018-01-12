@@ -2,7 +2,7 @@
 
 This package provides a Neos CMS Inspector Editor to select geo coordinates from a Google Map.
 
-![](http://g.recordit.co/14jtZurq8c.gif)
+![](http://g.recordit.co/J5s1tyhGyH.gif)
 
 __Under development - not stable - not working at the moment__
 
