@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { compose, withProps } from "recompose"
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import PropTypes from 'prop-types';
 import { neos } from '@neos-project/neos-ui-decorators';
 import { Icon } from '@neos-project/react-ui-components';
@@ -58,9 +59,12 @@ class GeoPointEditor extends PureComponent {
         });
     };
 
+    onCopy = () => this.setState({ copied: true });
+
     hasValue = value => value && value.length === 2
 
-    pointToString = ([lat, lng], f = 2) => `${(lat).toFixed(f)}" N, ${(lng).toFixed(f)}" W`;
+    pointToFormatedString = ([lat, lng], f = 2) => `${(lat).toFixed(f)}" N, ${(lng).toFixed(f)}" W`;
+    pointToString = ([lat, lng]) => `${(lat).toFixed(7)},${(lng).toFixed(7)}`;
 
     render() {
         const { highlight, options, value } = this.props;
@@ -74,7 +78,7 @@ class GeoPointEditor extends PureComponent {
         }
 
         const [lat, lng] = this.hasValue(value) ? value : defaultPosition;
-        const point = {lat, lng};
+        const point = { lat, lng };
 
         const wrapperClassName = mergeClassNames({
             [style.wrapper]: true,
@@ -96,6 +100,7 @@ class GeoPointEditor extends PureComponent {
 
         const current = new GeoPoint(lat, lng);
         const previous = previousPoint ? new GeoPoint(previousPoint[0], previousPoint[1]) : null;
+        const hasValue = this.hasValue(value);
 
         return (
             <div className={wrapperClassName}>
@@ -110,23 +115,29 @@ class GeoPointEditor extends PureComponent {
                 </div>
                 <div className={infoViewWrapperClassName}>
                     <div className={infoViewClassName}>
-                        <div className={style.propertyLabel}>Current</div>
+                        <div className={style.propertyLabel}>
+                            {hasValue ? <CopyToClipboard
+                                text={this.pointToString(value)}
+                                onCopy={this.onCopy}>
+                                <span>Current <Icon icon="copy" /></span>
+                            </CopyToClipboard> : <span>Current</span>}
+                        </div>
                         <div className={style.propertyValue}>
-                            { this.hasValue(value) ? this.pointToString(value) : 'Empty' }
+                            {hasValue ? this.pointToFormatedString(value) : 'Empty'}
                         </div>
                     </div>
-                    { previousPoint && <div className={infoViewClassName} onClick={this.restorePreviousValue}>
-                        <div className={style.propertyLabel}>
+                    {previousPoint && <div className={infoViewClassName}>
+                        <div className={style.propertyLabel} onClick={this.restorePreviousValue}>
                             Previous <Icon icon="refresh" />
                         </div>
                         <div className={style.propertyValue}>
-                            {this.pointToString(previousPoint)}
+                            {this.pointToFormatedString(previousPoint)}
                         </div>
-                    </div> }
+                    </div>}
                 </div>
-                { previous && <div className={centeredInfoViewClassName}>
+                {previous && <div className={centeredInfoViewClassName}>
                     <div className={style.propertyValue}><em>{Number((current.distanceTo(previous, true)).toFixed(2))} km from the current position</em></div>
-                </div> }
+                </div>}
             </div>
         )
     }
