@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { compose, withProps } from "recompose"
 import PropTypes from 'prop-types';
 import { neos } from '@neos-project/neos-ui-decorators';
+import { Icon } from '@neos-project/react-ui-components';
 import mergeClassNames from 'classnames';
 import GeoPoint from 'geopoint';
 
@@ -21,13 +22,8 @@ class GeoPointEditor extends PureComponent {
         // The propertyName this editor is used for, coming from the inspector
         identifier: PropTypes.string,
 
-        value: PropTypes.oneOfType([
-            PropTypes.shape({
-                lat: PropTypes.number,
-                lng: PropTypes.number
-            }),
-            PropTypes.string
-        ]),
+        value: PropTypes.arrayOf(PropTypes.number),
+
         // "hooks" are the hooks specified by commit()
         hooks: PropTypes.object,
 
@@ -40,24 +36,45 @@ class GeoPointEditor extends PureComponent {
     };
 
     handleValueChange = nextValue => {
-        const { value } = this.props;
-        this.props.commit(nextValue);
+        const { value, commit } = this.props;
+        if (this.hasValue(value)) {
+            this.setState({
+                previousPoint: value
+            }, () => {
+                commit(nextValue);
+            })
+        } else {
+            commit(nextValue);
+        }
+    };
+
+    restorePreviousValue = () => {
+        const { value, commit } = this.props;
+        const { previousPoint } = this.state;
         this.setState({
             previousPoint: value
+        }, () => {
+            commit(previousPoint);
         });
     };
+
+    hasValue = value => value && value.length === 2
+
+    pointToString = ([lat, lng], f = 2) => `${(lat).toFixed(f)}" N, ${(lng).toFixed(f)}" W`;
 
     render() {
         const { highlight, options, value } = this.props;
         const { previousPoint } = this.state;
         const { mapDefaultOptions, defaultPosition, key, url } = options;
 
+        console.log('current value', value);
+
         if (mapDefaultOptions.styles === undefined) {
             mapDefaultOptions.styles = MapStyles;
         }
 
-        const point = value || defaultPosition;
-        const { lat, lng } = point;
+        const [lat, lng] = this.hasValue(value) ? value : defaultPosition;
+        const point = {lat, lng};
 
         const wrapperClassName = mergeClassNames({
             [style.wrapper]: true,
@@ -78,7 +95,7 @@ class GeoPointEditor extends PureComponent {
         });
 
         const current = new GeoPoint(lat, lng);
-        const previous = previousPoint ? new GeoPoint(previousPoint.lat, previousPoint.lng) : null;
+        const previous = previousPoint ? new GeoPoint(previousPoint[0], previousPoint[1]) : null;
 
         return (
             <div className={wrapperClassName}>
@@ -91,19 +108,23 @@ class GeoPointEditor extends PureComponent {
                         googleMapURL={`${url}&key=${key}`}
                     />
                 </div>
-                { value ? <div className={infoViewWrapperClassName}>
+                <div className={infoViewWrapperClassName}>
                     <div className={infoViewClassName}>
                         <div className={style.propertyLabel}>Current</div>
-                        <div className={style.propertyValue}>{Number((lat).toFixed(4))} / {Number((lng).toFixed(4))}</div>
-                    </div>
-                    { previousPoint && <div className={infoViewClassName}>
-                        <div className={style.propertyLabel}>Previous</div>
                         <div className={style.propertyValue}>
-                            {Number((previousPoint.lat).toFixed(4))} / {Number((previousPoint.lng).toFixed(4))}
+                            { this.hasValue(value) ? this.pointToString(value) : 'Empty' }
+                        </div>
+                    </div>
+                    { previousPoint && <div className={infoViewClassName} onClick={this.restorePreviousValue}>
+                        <div className={style.propertyLabel}>
+                            Previous <Icon icon="refresh" />
+                        </div>
+                        <div className={style.propertyValue}>
+                            {this.pointToString(previousPoint)}
                         </div>
                     </div> }
-                </div> : <div className={centeredInfoViewClassName}>You can select a point by clicking on the map</div> }
-                { previousPoint && <div className={centeredInfoViewClassName}>
+                </div>
+                { previous && <div className={centeredInfoViewClassName}>
                     <div className={style.propertyValue}><em>{Number((current.distanceTo(previous, true)).toFixed(2))} km from the current position</em></div>
                 </div> }
             </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { compose, withProps } from 'recompose'
 import { GoogleMap, Marker, withGoogleMap, withScriptjs } from 'react-google-maps'
 
-const point = event => ({lat: event.latLng.lat(), lng: event.latLng.lng()});
+const point = event => [event.latLng.lat(), event.latLng.lng()];
 
 const Map = compose(
     withProps({

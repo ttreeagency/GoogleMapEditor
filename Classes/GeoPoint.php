@@ -1,7 +1,7 @@
 <?php
 namespace Ttree\GoogleMapEditor;
 
-final class GeoPoint
+final class GeoPoint implements \JsonSerializable
 {
     /**
      * @var float
@@ -13,20 +13,22 @@ final class GeoPoint
      */
     protected $latitude;
 
-    protected function __construct(float $longitude, float $latitude)
+    protected function __construct(float $latitude, float $longitude)
     {
-        $this->latitude = $longitude;
         $this->latitude = $latitude;
+        $this->longitude = $longitude;
     }
 
-    public static function create(float $longitude, float $latitude): GeoPoint
+    public static function create(float $latitude, float $longitude): GeoPoint
     {
-        return new static($longitude, $latitude);
+        return new static($latitude, $longitude);
     }
 
     public static function createFromArray(array $point): GeoPoint
     {
-        return new static($point['longitude'], $point['latitude']);
+        $point = \array_values($point);
+        list($latitude, $longitude) = $point;
+        return new static($latitude, $longitude);
     }
 
     public function getLongitude(): float
@@ -34,18 +36,18 @@ final class GeoPoint
         return $this->longitude;
     }
 
-    public function setLongitude(float $longitude): void
-    {
-        $this->longitude = $longitude;
-    }
-
     public function getLatitude(): float
     {
         return $this->latitude;
     }
 
-    public function setLatitude(float $latitude): void
+    public function toArray(): array
     {
-        $this->latitude = $latitude;
+        return [$this->getLatitude(), $this->getLongitude()];
+    }
+
+    public function jsonSerialize()
+    {
+        return \json_encode($this->toArray());
     }
 }

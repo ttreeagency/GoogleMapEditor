@@ -10,14 +10,12 @@ Neos:
       inspector:
         dataTypes:
           Ttree\GoogleMapEditor\GeoPoint:
-            typeConverter: Neos\Flow\Property\TypeConverter\ArrayConverter
             editor: Ttree.GoogleMapEditor/Inspector/Editors/GeoPointEditor
+            typeConverter: Ttree\GoogleMapEditor\GeoPointToArrayConverter
             editorOptions:
               url: https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places
               key: use-a-valid-google-map-api-key
-              defaultPosition:
-                lat: -34.397
-                lng: 150.644
+              defaultPosition: [-34.397, 150.644]
               mapDefaultOptions:
                 scrollwheel: false
                 navigationControl: false
