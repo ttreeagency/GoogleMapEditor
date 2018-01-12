@@ -15,6 +15,9 @@ Neos:
             editorOptions:
               url: https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places
               key: use-a-valid-google-map-api-key
+              defaultPosition:
+                lat: -34.397
+                lng: 150.644
               mapDefaultOptions:
                 scrollwheel: false
                 navigationControl: false

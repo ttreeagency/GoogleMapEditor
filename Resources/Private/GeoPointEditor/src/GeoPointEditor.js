@@ -50,14 +50,14 @@ class GeoPointEditor extends PureComponent {
     render() {
         const { highlight, options, value } = this.props;
         const { previousPoint } = this.state;
-        const { mapDefaultOptions, key, url } = options;
-        const { lat = -34.397, lng = 150.644 } = value || {};
+        const { mapDefaultOptions, defaultPosition, key, url } = options;
 
         if (mapDefaultOptions.styles === undefined) {
             mapDefaultOptions.styles = MapStyles;
         }
 
-        const point = { lat, lng };
+        const point = value || defaultPosition;
+        const { lat, lng } = point;
 
         const wrapperClassName = mergeClassNames({
             [style.wrapper]: true,
@@ -72,7 +72,7 @@ class GeoPointEditor extends PureComponent {
             [style.infoView]: true
         });
 
-        const centeredInfoViewPreviousClassName = mergeClassNames({
+        const centeredInfoViewClassName = mergeClassNames({
             [style.infoView]: true,
             [style['infoView--centered']]: true
         });
@@ -91,19 +91,19 @@ class GeoPointEditor extends PureComponent {
                         googleMapURL={`${url}&key=${key}`}
                     />
                 </div>
-                <div className={infoViewWrapperClassName}>
+                { value ? <div className={infoViewWrapperClassName}>
                     <div className={infoViewClassName}>
                         <div className={style.propertyLabel}>Current</div>
-                        <div className={style.propertyValue}>{Number((lat).toFixed(2))} / {Number((lng).toFixed(2))}</div>
+                        <div className={style.propertyValue}>{Number((lat).toFixed(4))} / {Number((lng).toFixed(4))}</div>
                     </div>
                     { previousPoint && <div className={infoViewClassName}>
                         <div className={style.propertyLabel}>Previous</div>
                         <div className={style.propertyValue}>
-                            {Number((previousPoint.lat).toFixed(2))} / {Number((previousPoint.lng).toFixed(2))}
+                            {Number((previousPoint.lat).toFixed(4))} / {Number((previousPoint.lng).toFixed(4))}
                         </div>
                     </div> }
-                </div>
-                { previousPoint && <div className={centeredInfoViewPreviousClassName}>
+                </div> : <div className={centeredInfoViewClassName}>You can select a point by clicking on the map</div> }
+                { previousPoint && <div className={centeredInfoViewClassName}>
                     <div className={style.propertyValue}><em>{Number((current.distanceTo(previous, true)).toFixed(2))} km from the current position</em></div>
                 </div> }
             </div>
