@@ -69,9 +69,7 @@ class GeoPointEditor extends PureComponent {
     render() {
         const { highlight, options, value } = this.props;
         const { previousPoint } = this.state;
-        const { mapDefaultOptions, defaultPosition, key, url } = options;
-
-        console.log('current value', value);
+        const { mapDefaultOptions, defaultPosition, defaultZoom, key, url } = options;
 
         if (mapDefaultOptions.styles === undefined) {
             mapDefaultOptions.styles = MapStyles;
@@ -107,6 +105,7 @@ class GeoPointEditor extends PureComponent {
                 <div className={style.mapWrapper}>
                     <Map
                         onClick={this.handleValueChange}
+                        defaultZoom={defaultZoom}
                         defaultOptions={mapDefaultOptions}
                         center={point}
                         position={point}

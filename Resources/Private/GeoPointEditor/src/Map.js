@@ -14,8 +14,8 @@ const Map = compose(
     withGoogleMap
 )(props =>
     <GoogleMap
-        defaultZoom={8}
         defaultCenter={props.center}
+        defaultZoom={props.defaultZoom}
         defaultOptions={props.defaultOptions}
         onClick={(event) => props.onClick(point(event))}
     >
