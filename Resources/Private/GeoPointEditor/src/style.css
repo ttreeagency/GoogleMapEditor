@@ -12,8 +12,9 @@
 }
 
 .infoView {
-    user-select: none;
     composes: reset from './reset.css';
+    user-select: none;
+    cursor: pointer;
     display: inline-block;
     vertical-align: top;
     width: 100%;

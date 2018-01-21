@@ -127,7 +127,7 @@ class GeoPointEditor extends PureComponent {
                     </div>
                     {previousPoint && <div className={infoViewClassName}>
                         <div className={style.propertyLabel} onClick={this.restorePreviousValue}>
-                            Previous <Icon icon="refresh" />
+                            Previous <Icon icon="undo" />
                         </div>
                         <div className={style.propertyValue}>
                             {this.pointToFormatedString(previousPoint)}
