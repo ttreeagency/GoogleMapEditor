@@ -19,6 +19,7 @@ initial marker.
                   url: https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places
                   key: use-a-valid-google-map-api-key
                   defaultPosition: [-34.397, 150.644]
+                  defaultZoom: 8
                   mapDefaultOptions:
                     scrollwheel: false
                     navigationControl: false
@@ -51,12 +52,14 @@ For each instance of the editor, you can also customize the default `editorOptio
             inspector:
               editorOptions:
                 defaultPosition: [-34.397, 150.644]
-                streetViewControl: true
-                styles:
-                  - featureType: all
-                    elementType: geometry.fill
-                    stylers:
-                      - weight: 2.00
+                defaultZoom: 14
+                mapDefaultOptions:
+                    streetViewControl: true
+                    styles:
+                      - featureType: all
+                        elementType: geometry.fill
+                        stylers:
+                          - weight: 2.00
                 
 ## Acknowledgments
 
