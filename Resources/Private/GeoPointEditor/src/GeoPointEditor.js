@@ -6,10 +6,13 @@ import { neos } from '@neos-project/neos-ui-decorators';
 import { Icon } from '@neos-project/react-ui-components';
 import mergeClassNames from 'classnames';
 import GeoPoint from 'geopoint';
+import I18n from '@neos-project/neos-ui-i18n';
 
 import MapStyles from './MapStyles';
 import Map from './Map';
 import style from './style.css';
+
+const l18nPrefix = v => `Ttree.GoogleMapEditor:Main:${v}`;
 
 @neos(globalRegistry => ({
     secondaryEditorsRegistry: globalRegistry.get('inspector').get('secondaryEditors')
@@ -118,8 +121,8 @@ class GeoPointEditor extends PureComponent {
                             {hasValue ? <CopyToClipboard
                                 text={this.pointToString(value)}
                                 onCopy={this.onCopy}>
-                                <span>Current <Icon icon="copy" /></span>
-                            </CopyToClipboard> : <span>Current</span>}
+                                <span><I18n id={l18nPrefix('infoview.current')}/> <Icon icon="copy" /></span>
+                            </CopyToClipboard> : <span><I18n id={l18nPrefix('infoview.current')}/></span>}
                         </div>
                         <div className={style.propertyValue}>
                             {hasValue ? this.pointToFormatedString(value) : 'Empty'}
@@ -127,7 +130,7 @@ class GeoPointEditor extends PureComponent {
                     </div>
                     {previousPoint && <div className={infoViewClassName}>
                         <div className={style.propertyLabel} onClick={this.restorePreviousValue}>
-                            Previous <Icon icon="undo" />
+                            <I18n id={l18nPrefix('infoview.previous')}/> <Icon icon="undo" />
                         </div>
                         <div className={style.propertyValue}>
                             {this.pointToFormatedString(previousPoint)}
@@ -135,7 +138,7 @@ class GeoPointEditor extends PureComponent {
                     </div>}
                 </div>
                 {previous && <div className={centeredInfoViewClassName}>
-                    <div className={style.propertyValue}><em>{Number((current.distanceTo(previous, true)).toFixed(2))} km from the current position</em></div>
+                    <div className={style.propertyValue}><em>{Number((current.distanceTo(previous, true)).toFixed(2))} <I18n id={l18nPrefix('infoview.distance')}/></em></div>
                 </div>}
             </div>
         )
