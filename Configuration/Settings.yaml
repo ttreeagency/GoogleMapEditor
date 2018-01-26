@@ -7,6 +7,11 @@ Neos:
             resource: resource://Ttree.GoogleMapEditor/Public/GeoPointEditor/Plugin.js
 
     userInterface:
+      translation:
+        autoInclude:
+          Ttree.GoogleMapEditor:
+            - 'Main'
+
       inspector:
         dataTypes:
           Ttree\GoogleMapEditor\GeoPoint:
