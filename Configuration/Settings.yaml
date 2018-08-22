@@ -22,6 +22,9 @@ Neos:
               key: use-a-valid-google-map-api-key
               defaultPosition: [-34.397, 150.644]
               defaultZoom: 8
+              search: false
+              defaultSearchTerm: ''
+              searchPlaceholder: 'Enter address to search'
               mapDefaultOptions:
                 scrollwheel: false
                 navigationControl: false
@@ -29,3 +32,4 @@ Neos:
                 streetViewControl: false
                 draggableCursor: default
                 draggingCursor: pointer
+
