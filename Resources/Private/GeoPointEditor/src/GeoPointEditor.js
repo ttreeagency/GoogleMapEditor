@@ -72,7 +72,7 @@ class GeoPointEditor extends PureComponent {
     render() {
         const { highlight, options, value } = this.props;
         const { previousPoint } = this.state;
-        const { mapDefaultOptions, defaultPosition, defaultZoom, key, url } = options;
+        const { mapDefaultOptions, defaultPosition, defaultZoom, key, url, defaultSearchTerm, searchPlaceholder, search } = options;
 
         if (mapDefaultOptions.styles === undefined) {
             mapDefaultOptions.styles = MapStyles;
@@ -113,7 +113,10 @@ class GeoPointEditor extends PureComponent {
                         center={point}
                         position={point}
                         googleMapURL={`${url}&key=${key}`}
-                    />
+                        defaultSearchTerm={defaultSearchTerm}
+                        searchPlaceholder={searchPlaceholder}
+                        search={search}
+                />
                 </div>
                 <div className={infoViewWrapperClassName}>
                     <div className={infoViewClassName}>

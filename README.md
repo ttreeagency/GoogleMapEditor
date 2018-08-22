@@ -20,6 +20,9 @@ initial marker.
                   key: use-a-valid-google-map-api-key
                   defaultPosition: [-34.397, 150.644]
                   defaultZoom: 8
+                  search: true
+                  searchPlaceholder: 'Enter address to search'
+                  defaultSearchTerm: 'Vienna'
                   mapDefaultOptions:
                     scrollwheel: false
                     navigationControl: false
