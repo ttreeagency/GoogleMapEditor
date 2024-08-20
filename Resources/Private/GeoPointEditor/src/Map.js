@@ -1,6 +1,5 @@
 import React from 'react';
 import { compose, withProps, lifecycle } from 'recompose'
-import { $get } from 'plow-js'
 import { GoogleMap, Marker, withGoogleMap, withScriptjs } from 'react-google-maps'
 import { SearchBox } from "react-google-maps/lib/components/places/SearchBox"
 
@@ -49,7 +48,7 @@ const Map = compose(
                     const nextMarkers = places.map(place => ({
                         position: place.geometry.location,
                     }));
-                    const nextCenter = $get('0.position', nextMarkers) || this.state.center;
+                    const nextCenter = nextMarkers[0]?.position || this.state.center;
                     this.props.onClick([nextCenter.lat(), nextCenter.lng()]);
                     this.setState({
                         center: nextCenter,
