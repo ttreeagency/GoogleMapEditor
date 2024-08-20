@@ -3,12 +3,12 @@
     "license": "GNU GPLv3",
     "private": true,
     "scripts": {
-        "build": "neos-react-scripts build",
-        "watch": "neos-react-scripts watch"
+        "build": "node build.js",
+        "watch": "node build.js --watch"
     },
     "devDependencies": {
-        "@neos-project/neos-ui-extensibility": "1.0.4",
-        "@neos-project/react-ui-components": "^1.0.4"
+        "@neos-project/neos-ui-extensibility": "~8.3.0",
+        "esbuild": "~0.17.18"
     },
     "neos": {
         "buildTargetDirectory": "../../Public/GeoPointEditor"
