@@ -1,34 +1,28 @@
 <?php
+
 namespace Ttree\GoogleMapEditor;
 
+use Neos\Flow\Annotations as Flow;
+
+/**
+ * @Flow\Proxy(false)
+ */
 final class GeoPoint implements \JsonSerializable
 {
-    /**
-     * @var float
-     */
-    protected $longitude;
-
-    /**
-     * @var float
-     */
-    protected $latitude;
-
-    protected function __construct(float $latitude, float $longitude)
+    protected function __construct(protected float $latitude, protected float $longitude)
     {
-        $this->latitude = $latitude;
-        $this->longitude = $longitude;
     }
 
-    public static function create(float $latitude, float $longitude): GeoPoint
+    public static function create(float $latitude, float $longitude): self
     {
-        return new static($latitude, $longitude);
+        return new self($latitude, $longitude);
     }
 
-    public static function createFromArray(array $point): GeoPoint
+    public static function createFromArray(array $point): self
     {
         $point = \array_values($point);
-        list($latitude, $longitude) = $point;
-        return new static($latitude, $longitude);
+        [$latitude, $longitude] = $point;
+        return new self($latitude, $longitude);
     }
 
     public function getLongitude(): float

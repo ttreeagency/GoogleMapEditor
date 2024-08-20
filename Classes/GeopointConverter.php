@@ -1,11 +1,13 @@
 <?php
 namespace Ttree\GoogleMapEditor;
 
-use Neos\Error\Messages\Error;
-use Neos\Flow\Property\Exception;
 use Neos\Flow\Property\PropertyMappingConfigurationInterface;
 use Neos\Flow\Property\TypeConverter\AbstractTypeConverter;
+use Neos\Flow\Annotations as Flow;
 
+/**
+ * @Flow\Proxy(false)
+ */
 final class GeopointConverter extends AbstractTypeConverter
 {
     protected $sourceTypes = ['array', 'string'];
