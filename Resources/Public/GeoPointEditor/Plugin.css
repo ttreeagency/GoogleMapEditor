@@ -1,0 +1,42 @@
+/* src/style.css */
+.wrapper {
+}
+.wrapper--highlight {
+  outline: 2px solid var(--colors-Success);
+}
+.infoViewWrapper {
+  display: flex;
+  flex-direction: row;
+}
+.infoView {
+  composes: reset from "./reset.css";
+  user-select: none;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: top;
+  width: 100%;
+  line-height: 20px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  border: 2px solid var(--colors-ContrastNeutral);
+  background: var(--colors-ContrastNeutral);
+  font-size: var(--fontSize-Base);
+  padding: 7px var(--fontSize-Base);
+  margin: 0;
+  box-shadow: none;
+  transition: none;
+}
+.infoView--centered {
+  text-align: center;
+  padding: 0 14px 7px;
+}
+.mapWrapper {
+  border-bottom: 4px solid var(--colors-contrastBright);
+}
+.propertyLabel {
+  font-weight: bold;
+}
+.propertyValue {
+  font-size: var(--fontSize-Small);
+}
