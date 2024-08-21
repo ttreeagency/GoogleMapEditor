@@ -1,8 +1,8 @@
 .wrapper {
-
+    display: block;
 }
 
-.wrapper--highlight {
+.wrapperHighlight {
     outline: 2px solid var(--colors-Success);
 }
 
@@ -31,13 +31,13 @@
     transition: none;
 }
 
-.infoView--centered {
+.infoViewCentered {
     text-align: center;
     padding: 0 14px 7px;
 }
 
 .mapWrapper {
-    border-bottom: 4px solid var(--colors-contrastBright);
+    border-bottom: 4px solid var(--colors-ContrastBright);
 }
 
 .propertyLabel {

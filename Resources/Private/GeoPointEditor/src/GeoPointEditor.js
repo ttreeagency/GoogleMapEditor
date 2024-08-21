@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import { compose, withProps } from "recompose"
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import PropTypes from 'prop-types';
 import { neos } from '@neos-project/neos-ui-decorators';
@@ -10,7 +9,6 @@ import I18n from '@neos-project/neos-ui-i18n';
 
 import MapStyles from './MapStyles';
 import Map from './Map';
-import style from './style.css';
 
 const l18nPrefix = v => `Ttree.GoogleMapEditor:Main:${v}`;
 
@@ -37,6 +35,16 @@ class GeoPointEditor extends PureComponent {
 
         options: PropTypes.object,
         highlight: PropTypes.bool,
+        theme: PropTypes.shape({
+            'wrapper': PropTypes.string,
+            'wrapper--highlight': PropTypes.string,
+            'infoViewWrapper': PropTypes.string,
+            'infoView': PropTypes.string,
+            'propertyLabel': PropTypes.string,
+            'propertyValue': PropTypes.string,
+            'infoView--centered': PropTypes.string,
+            'mapWrapper': PropTypes.string
+        }).isRequired,
     };
 
     handleValueChange = nextValue => {
@@ -70,33 +78,34 @@ class GeoPointEditor extends PureComponent {
     pointToString = ([lat, lng]) => `${(lat).toFixed(7)},${(lng).toFixed(7)}`;
 
     render() {
-        const { highlight, options, value } = this.props;
+        const { highlight, options, value, theme } = this.props;
         const { previousPoint } = this.state;
         const { mapDefaultOptions, defaultPosition, defaultZoom, key, url, defaultSearchTerm, searchPlaceholder, search } = options;
 
-        if (mapDefaultOptions.styles === undefined) {
-            mapDefaultOptions.styles = MapStyles;
-        }
+        const updatedMapDefaultOptions = {
+            ...mapDefaultOptions,
+            styles: mapDefaultOptions.styles !== undefined ? mapDefaultOptions.styles : MapStyles
+        };
 
         const [lat, lng] = this.hasValue(value) ? value : defaultPosition;
         const point = { lat, lng };
 
         const wrapperClassName = mergeClassNames({
-            [style.wrapper]: true,
-            [style['wrapper--highlight']]: highlight
+            [theme.wrapper]: true,
+            [theme.wrapperHighlight]: highlight
         });
 
         const infoViewWrapperClassName = mergeClassNames({
-            [style.infoViewWrapper]: true
+            [theme.infoViewWrapper]: true
         });
 
         const infoViewClassName = mergeClassNames({
-            [style.infoView]: true
+            [theme.infoView]: true
         });
 
         const centeredInfoViewClassName = mergeClassNames({
-            [style.infoView]: true,
-            [style['infoView--centered']]: true
+            [theme.infoView]: true,
+            [theme.infoViewCentered]: true
         });
 
         const current = new GeoPoint(lat, lng);
@@ -105,11 +114,11 @@ class GeoPointEditor extends PureComponent {
 
         return (
             <div className={wrapperClassName}>
-                <div className={style.mapWrapper}>
+                <div className={theme.mapWrapper}>
                     <Map
                         onClick={this.handleValueChange}
                         defaultZoom={defaultZoom}
-                        defaultOptions={mapDefaultOptions}
+                        defaultOptions={updatedMapDefaultOptions}
                         center={point}
                         position={point}
                         googleMapURL={`${url}&key=${key}`}
@@ -120,28 +129,28 @@ class GeoPointEditor extends PureComponent {
                 </div>
                 <div className={infoViewWrapperClassName}>
                     <div className={infoViewClassName}>
-                        <div className={style.propertyLabel}>
+                        <div className={theme.propertyLabel}>
                             {hasValue ? <CopyToClipboard
                                 text={this.pointToString(value)}
                                 onCopy={this.onCopy}>
                                 <span><I18n id={l18nPrefix('infoview.current')}/> <Icon icon="copy" /></span>
                             </CopyToClipboard> : <span><I18n id={l18nPrefix('infoview.current')}/></span>}
                         </div>
-                        <div className={style.propertyValue}>
+                        <div className={theme.propertyValue}>
                             {hasValue ? this.pointToFormatedString(value) : 'Empty'}
                         </div>
                     </div>
                     {previousPoint && <div className={infoViewClassName}>
-                        <div className={style.propertyLabel} onClick={this.restorePreviousValue}>
+                        <div className={theme.propertyLabel} onClick={this.restorePreviousValue}>
                             <I18n id={l18nPrefix('infoview.previous')}/> <Icon icon="undo" />
                         </div>
-                        <div className={style.propertyValue}>
+                        <div className={theme.propertyValue}>
                             {this.pointToFormatedString(previousPoint)}
                         </div>
                     </div>}
                 </div>
                 {previous && <div className={centeredInfoViewClassName}>
-                    <div className={style.propertyValue}><em>{Number((current.distanceTo(previous, true)).toFixed(2))} <I18n id={l18nPrefix('infoview.distance')}/></em></div>
+                    <div className={theme.propertyValue}><em>{Number((current.distanceTo(previous, true)).toFixed(2))} <I18n id={l18nPrefix('infoview.distance')}/></em></div>
                 </div>}
             </div>
         )

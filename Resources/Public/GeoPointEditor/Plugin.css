@@ -1,42 +1,73 @@
-/* src/style.css */
-.wrapper {
+/* esbuild-css-modules-plugin-ns-css:src/style.module.css */
+.style-module__reset_QRCotq__ {
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  font-family: Open Sans, sans-serif;
+  font-weight: normal;
 }
-.wrapper--highlight {
+.style-module__reset_QRCotq__,
+.style-module__reset_QRCotq__:before,
+.style-module__reset_QRCotq__:after {
+  box-sizing: border-box;
+}
+.style-module__reset_QRCotq__ input,
+.style-module__reset_QRCotq__ textarea,
+.style-module__reset_QRCotq__ select,
+.style-module__reset_QRCotq__ button {
+  font-size: var(--fontSize-Base);
+  margin: 0;
+}
+.style-module__reset_QRCotq__ ul {
+  padding: 0;
+}
+.style-module__reset_QRCotq__ li {
+  display: block;
+}
+.style-module__reset_QRCotq__ input::-webkit-search-cancel-button {
+  display: none;
+}
+.style-module__reset_QRCotq__ input {
+  appearance: none;
+}
+.style-module__wrapper_VC4pIW__ {
+  display: block;
+}
+.style-module__wrapperHighlight_VC4pIW__ {
   outline: 2px solid var(--colors-Success);
 }
-.infoViewWrapper {
-  display: flex;
+.style-module__infoViewWrapper_VC4pIW__ {
   flex-direction: row;
+  display: flex;
 }
-.infoView {
-  composes: reset from "./reset.css";
+.style-module__infoView_VC4pIW__ {
   user-select: none;
   cursor: pointer;
-  display: inline-block;
   vertical-align: top;
-  width: 100%;
-  line-height: 20px;
   white-space: nowrap;
   text-overflow: ellipsis;
-  overflow: hidden;
   border: 2px solid var(--colors-ContrastNeutral);
   background: var(--colors-ContrastNeutral);
+  line-height: 20px;
   font-size: var(--fontSize-Base);
   padding: 7px var(--fontSize-Base);
-  margin: 0;
   box-shadow: none;
+  width: 100%;
+  margin: 0;
   transition: none;
+  display: inline-block;
+  overflow: hidden;
 }
-.infoView--centered {
+.style-module__infoViewCentered_VC4pIW__ {
   text-align: center;
   padding: 0 14px 7px;
 }
-.mapWrapper {
-  border-bottom: 4px solid var(--colors-contrastBright);
+.style-module__mapWrapper_VC4pIW__ {
+  border-bottom: 4px solid var(--colors-ContrastBright);
 }
-.propertyLabel {
+.style-module__propertyLabel_VC4pIW__ {
   font-weight: bold;
 }
-.propertyValue {
+.style-module__propertyValue_VC4pIW__ {
   font-size: var(--fontSize-Small);
 }
