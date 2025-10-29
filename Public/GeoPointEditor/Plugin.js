@@ -111,14 +111,6 @@
     }
   });
 
-  // node_modules/@neos-project/neos-ui-extensibility/dist/shims/vendor/react-css-themr/index.js
-  var require_react_css_themr = __commonJS({
-    "node_modules/@neos-project/neos-ui-extensibility/dist/shims/vendor/react-css-themr/index.js"(exports, module) {
-      init_readFromConsumerApi();
-      module.exports = readFromConsumerApi("vendor")().reactCssThemr;
-    }
-  });
-
   // node_modules/@neos-project/neos-ui-extensibility/dist/shims/vendor/react/index.js
   var require_react = __commonJS({
     "node_modules/@neos-project/neos-ui-extensibility/dist/shims/vendor/react/index.js"(exports, module) {
@@ -511,183 +503,6 @@
     "node_modules/@neos-project/neos-ui-extensibility/dist/shims/neosProjectPackages/neos-ui-i18n/index.js"(exports, module) {
       init_readFromConsumerApi();
       module.exports = readFromConsumerApi("NeosProjectPackages")().NeosUiI18n;
-    }
-  });
-
-  // src/MapStyles.json
-  var MapStyles_default;
-  var init_MapStyles = __esm({
-    "src/MapStyles.json"() {
-      MapStyles_default = [
-        {
-          featureType: "all",
-          elementType: "geometry.fill",
-          stylers: [
-            {
-              weight: "2.00"
-            }
-          ]
-        },
-        {
-          featureType: "all",
-          elementType: "geometry.stroke",
-          stylers: [
-            {
-              color: "#9c9c9c"
-            }
-          ]
-        },
-        {
-          featureType: "all",
-          elementType: "labels.text",
-          stylers: [
-            {
-              visibility: "on"
-            }
-          ]
-        },
-        {
-          featureType: "landscape",
-          elementType: "all",
-          stylers: [
-            {
-              color: "#f2f2f2"
-            }
-          ]
-        },
-        {
-          featureType: "landscape",
-          elementType: "geometry.fill",
-          stylers: [
-            {
-              color: "#ffffff"
-            }
-          ]
-        },
-        {
-          featureType: "landscape.man_made",
-          elementType: "geometry.fill",
-          stylers: [
-            {
-              color: "#ffffff"
-            }
-          ]
-        },
-        {
-          featureType: "poi",
-          elementType: "all",
-          stylers: [
-            {
-              visibility: "off"
-            }
-          ]
-        },
-        {
-          featureType: "road",
-          elementType: "all",
-          stylers: [
-            {
-              saturation: -100
-            },
-            {
-              lightness: 45
-            }
-          ]
-        },
-        {
-          featureType: "road",
-          elementType: "geometry.fill",
-          stylers: [
-            {
-              color: "#eeeeee"
-            }
-          ]
-        },
-        {
-          featureType: "road",
-          elementType: "labels.text.fill",
-          stylers: [
-            {
-              color: "#7b7b7b"
-            }
-          ]
-        },
-        {
-          featureType: "road",
-          elementType: "labels.text.stroke",
-          stylers: [
-            {
-              color: "#ffffff"
-            }
-          ]
-        },
-        {
-          featureType: "road.highway",
-          elementType: "all",
-          stylers: [
-            {
-              visibility: "simplified"
-            }
-          ]
-        },
-        {
-          featureType: "road.arterial",
-          elementType: "labels.icon",
-          stylers: [
-            {
-              visibility: "off"
-            }
-          ]
-        },
-        {
-          featureType: "transit",
-          elementType: "all",
-          stylers: [
-            {
-              visibility: "off"
-            }
-          ]
-        },
-        {
-          featureType: "water",
-          elementType: "all",
-          stylers: [
-            {
-              color: "#46bcec"
-            },
-            {
-              visibility: "on"
-            }
-          ]
-        },
-        {
-          featureType: "water",
-          elementType: "geometry.fill",
-          stylers: [
-            {
-              color: "#c8d7d4"
-            }
-          ]
-        },
-        {
-          featureType: "water",
-          elementType: "labels.text.fill",
-          stylers: [
-            {
-              color: "#070707"
-            }
-          ]
-        },
-        {
-          featureType: "water",
-          elementType: "labels.text.stroke",
-          stylers: [
-            {
-              color: "#ffffff"
-            }
-          ]
-        }
-      ];
     }
   });
 
@@ -1730,6 +1545,14 @@
       exports.createEventHandler = createEventHandler;
       exports.createEventHandlerWithConfig = createEventHandlerWithConfig;
       exports.setObservableConfig = configureObservable;
+    }
+  });
+
+  // node_modules/@neos-project/neos-ui-extensibility/dist/shims/vendor/plow-js/index.js
+  var require_plow_js = __commonJS({
+    "node_modules/@neos-project/neos-ui-extensibility/dist/shims/vendor/plow-js/index.js"(exports, module) {
+      init_readFromConsumerApi();
+      module.exports = readFromConsumerApi("vendor")().plow;
     }
   });
 
@@ -12414,11 +12237,12 @@
   });
 
   // src/Map.js
-  var import_react, import_recompose, import_react_google_maps, import_SearchBox, point, Map, Map_default;
+  var import_react, import_recompose, import_plow_js, import_react_google_maps, import_SearchBox, point, Map, Map_default;
   var init_Map = __esm({
     "src/Map.js"() {
       import_react = __toESM(require_react());
       import_recompose = __toESM(require_Recompose());
+      import_plow_js = __toESM(require_plow_js());
       import_react_google_maps = __toESM(require_lib4());
       import_SearchBox = __toESM(require_SearchBox());
       point = (event) => [event.latLng.lat(), event.latLng.lng()];
@@ -12463,7 +12287,7 @@
                 const nextMarkers = places.map((place) => ({
                   position: place.geometry.location
                 }));
-                const nextCenter = nextMarkers[0]?.position || this.state.center;
+                const nextCenter = (0, import_plow_js.$get)("0.position", nextMarkers) || this.state.center;
                 this.props.onClick([nextCenter.lat(), nextCenter.lng()]);
                 this.setState({
                   center: nextCenter,
@@ -12527,6 +12351,14 @@
     }
   });
 
+  // src/style.css
+  var _default;
+  var init_ = __esm({
+    "src/style.css"() {
+      _default = {};
+    }
+  });
+
   // src/GeoPointEditor.js
   var import_react2, import_react_copy_to_clipboard, import_prop_types, import_neos_ui_decorators, import_react_ui_components, import_classnames, import_geopoint, import_neos_ui_i18n, l18nPrefix, GeoPointEditor, GeoPointEditor_default;
   var init_GeoPointEditor = __esm({
@@ -12539,8 +12371,8 @@
       import_classnames = __toESM(require_classnames());
       import_geopoint = __toESM(require_geopoint());
       import_neos_ui_i18n = __toESM(require_neos_ui_i18n());
-      init_MapStyles();
       init_Map();
+      init_();
       l18nPrefix = (v) => `Ttree.GoogleMapEditor:Main:${v}`;
       GeoPointEditor = class extends import_react2.PureComponent {
         constructor() {
@@ -12575,39 +12407,34 @@
           this.pointToString = ([lat, lng]) => `${lat.toFixed(7)},${lng.toFixed(7)}`;
         }
         render() {
-          const { highlight, options, value, theme } = this.props;
+          const { highlight, options, value } = this.props;
           const { previousPoint } = this.state;
           const { mapDefaultOptions, defaultPosition, defaultZoom, key, url, defaultSearchTerm, searchPlaceholder, search } = options;
-          const updatedMapDefaultOptions = {
-            ...mapDefaultOptions,
-            // copy all properties from mapDefaultOptions
-            styles: mapDefaultOptions.styles !== void 0 ? mapDefaultOptions.styles : MapStyles_default
-          };
           const [lat, lng] = this.hasValue(value) ? value : defaultPosition;
           const point2 = { lat, lng };
           const wrapperClassName = (0, import_classnames.default)({
-            [theme.wrapper]: true,
-            [theme.wrapperHighlight]: highlight
+            [_default.wrapper]: true,
+            [_default["wrapper--highlight"]]: highlight
           });
           const infoViewWrapperClassName = (0, import_classnames.default)({
-            [theme.infoViewWrapper]: true
+            [_default.infoViewWrapper]: true
           });
           const infoViewClassName = (0, import_classnames.default)({
-            [theme.infoView]: true
+            [_default.infoView]: true
           });
           const centeredInfoViewClassName = (0, import_classnames.default)({
-            [theme.infoView]: true,
-            [theme.infoViewCentered]: true
+            [_default.infoView]: true,
+            [_default["infoView--centered"]]: true
           });
           const current = new import_geopoint.default(lat, lng);
           const previous = previousPoint ? new import_geopoint.default(previousPoint[0], previousPoint[1]) : null;
           const hasValue = this.hasValue(value);
-          return /* @__PURE__ */ import_react2.default.createElement("div", { className: wrapperClassName }, /* @__PURE__ */ import_react2.default.createElement("div", { className: theme.mapWrapper }, /* @__PURE__ */ import_react2.default.createElement(
+          return /* @__PURE__ */ import_react2.default.createElement("div", { className: wrapperClassName }, /* @__PURE__ */ import_react2.default.createElement("div", { className: _default.mapWrapper }, /* @__PURE__ */ import_react2.default.createElement(
             Map_default,
             {
               onClick: this.handleValueChange,
               defaultZoom,
-              defaultOptions: updatedMapDefaultOptions,
+              defaultOptions: mapDefaultOptions,
               center: point2,
               position: point2,
               googleMapURL: `${url}&key=${key}`,
@@ -12615,14 +12442,14 @@
               searchPlaceholder,
               search
             }
-          )), /* @__PURE__ */ import_react2.default.createElement("div", { className: infoViewWrapperClassName }, /* @__PURE__ */ import_react2.default.createElement("div", { className: infoViewClassName }, /* @__PURE__ */ import_react2.default.createElement("div", { className: theme.propertyLabel }, hasValue ? /* @__PURE__ */ import_react2.default.createElement(
+          )), /* @__PURE__ */ import_react2.default.createElement("div", { className: infoViewWrapperClassName }, /* @__PURE__ */ import_react2.default.createElement("div", { className: infoViewClassName }, /* @__PURE__ */ import_react2.default.createElement("div", { className: _default.propertyLabel }, hasValue ? /* @__PURE__ */ import_react2.default.createElement(
             import_react_copy_to_clipboard.CopyToClipboard,
             {
               text: this.pointToString(value),
               onCopy: this.onCopy
             },
             /* @__PURE__ */ import_react2.default.createElement("span", null, /* @__PURE__ */ import_react2.default.createElement(import_neos_ui_i18n.default, { id: l18nPrefix("infoview.current") }), " ", /* @__PURE__ */ import_react2.default.createElement(import_react_ui_components.Icon, { icon: "copy" }))
-          ) : /* @__PURE__ */ import_react2.default.createElement("span", null, /* @__PURE__ */ import_react2.default.createElement(import_neos_ui_i18n.default, { id: l18nPrefix("infoview.current") }))), /* @__PURE__ */ import_react2.default.createElement("div", { className: theme.propertyValue }, hasValue ? this.pointToFormatedString(value) : "Empty")), previousPoint && /* @__PURE__ */ import_react2.default.createElement("div", { className: infoViewClassName }, /* @__PURE__ */ import_react2.default.createElement("div", { className: theme.propertyLabel, onClick: this.restorePreviousValue }, /* @__PURE__ */ import_react2.default.createElement(import_neos_ui_i18n.default, { id: l18nPrefix("infoview.previous") }), " ", /* @__PURE__ */ import_react2.default.createElement(import_react_ui_components.Icon, { icon: "undo" })), /* @__PURE__ */ import_react2.default.createElement("div", { className: theme.propertyValue }, this.pointToFormatedString(previousPoint)))), previous && /* @__PURE__ */ import_react2.default.createElement("div", { className: centeredInfoViewClassName }, /* @__PURE__ */ import_react2.default.createElement("div", { className: theme.propertyValue }, /* @__PURE__ */ import_react2.default.createElement("em", null, Number(current.distanceTo(previous, true).toFixed(2)), " ", /* @__PURE__ */ import_react2.default.createElement(import_neos_ui_i18n.default, { id: l18nPrefix("infoview.distance") })))));
+          ) : /* @__PURE__ */ import_react2.default.createElement("span", null, /* @__PURE__ */ import_react2.default.createElement(import_neos_ui_i18n.default, { id: l18nPrefix("infoview.current") }))), /* @__PURE__ */ import_react2.default.createElement("div", { className: _default.propertyValue }, hasValue ? this.pointToFormatedString(value) : "Empty")), previousPoint && /* @__PURE__ */ import_react2.default.createElement("div", { className: infoViewClassName }, /* @__PURE__ */ import_react2.default.createElement("div", { className: _default.propertyLabel, onClick: this.restorePreviousValue }, /* @__PURE__ */ import_react2.default.createElement(import_neos_ui_i18n.default, { id: l18nPrefix("infoview.previous") }), " ", /* @__PURE__ */ import_react2.default.createElement(import_react_ui_components.Icon, { icon: "undo" })), /* @__PURE__ */ import_react2.default.createElement("div", { className: _default.propertyValue }, this.pointToFormatedString(previousPoint)))), previous && /* @__PURE__ */ import_react2.default.createElement("div", { className: centeredInfoViewClassName }, /* @__PURE__ */ import_react2.default.createElement("div", { className: _default.propertyValue }, /* @__PURE__ */ import_react2.default.createElement("em", null, Number(current.distanceTo(previous, true).toFixed(2)), " ", /* @__PURE__ */ import_react2.default.createElement(import_neos_ui_i18n.default, { id: l18nPrefix("infoview.distance") })))));
         }
       };
       GeoPointEditor.propTypes = {
@@ -12635,17 +12462,7 @@
         renderSecondaryInspector: import_prop_types.default.func.isRequired,
         secondaryEditorsRegistry: import_prop_types.default.object.isRequired,
         options: import_prop_types.default.object,
-        highlight: import_prop_types.default.bool,
-        theme: import_prop_types.default.shape({
-          "wrapper": import_prop_types.default.string,
-          "wrapper--highlight": import_prop_types.default.string,
-          "infoViewWrapper": import_prop_types.default.string,
-          "infoView": import_prop_types.default.string,
-          "propertyLabel": import_prop_types.default.string,
-          "propertyValue": import_prop_types.default.string,
-          "infoView--centered": import_prop_types.default.string,
-          "mapWrapper": import_prop_types.default.string
-        }).isRequired
+        highlight: import_prop_types.default.bool
       };
       GeoPointEditor = __decorateClass([
         (0, import_neos_ui_decorators.neos)((globalRegistry) => ({
@@ -12656,44 +12473,16 @@
     }
   });
 
-  // esbuild-css-modules-plugin-ns-css:src/style.module.css
-  var init_ = __esm({
-    "esbuild-css-modules-plugin-ns-css:src/style.module.css"() {
-    }
-  });
-
-  // src/style.module.css
-  var style_module_default;
-  var init_style_module = __esm({
-    "src/style.module.css"() {
-      init_();
-      style_module_default = {
-        "infoView": "style-module__reset_QRCotq__ style-module__infoView_VC4pIW__",
-        "infoViewCentered": "style-module__infoViewCentered_VC4pIW__",
-        "infoViewWrapper": "style-module__infoViewWrapper_VC4pIW__",
-        "mapWrapper": "style-module__mapWrapper_VC4pIW__",
-        "propertyLabel": "style-module__propertyLabel_VC4pIW__",
-        "propertyValue": "style-module__propertyValue_VC4pIW__",
-        "wrapper": "style-module__wrapper_VC4pIW__",
-        "wrapperHighlight": "style-module__wrapperHighlight_VC4pIW__"
-      };
-    }
-  });
-
   // src/manifest.js
   var manifest_exports = {};
-  var import_react_css_themr;
   var init_manifest2 = __esm({
     "src/manifest.js"() {
       init_dist();
-      import_react_css_themr = __toESM(require_react_css_themr());
       init_GeoPointEditor();
-      init_style_module();
       dist_default("Ttree.GoogleMapEditor:GeoPointEditor", {}, (globalRegistry) => {
-        const ThemedGeoPointEditor = (0, import_react_css_themr.themr)("Ttree.GoogleMapEditor/Editors/badgeGeoPointEditor", style_module_default)(GeoPointEditor_default);
         const editorsRegistry = globalRegistry.get("inspector").get("editors");
         editorsRegistry.set("Ttree.GoogleMapEditor/Inspector/Editors/GeoPointEditor", {
-          component: ThemedGeoPointEditor
+          component: GeoPointEditor_default
         });
       });
     }

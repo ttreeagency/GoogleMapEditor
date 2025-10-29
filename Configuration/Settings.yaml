@@ -5,6 +5,9 @@ Neos:
         javascript:
           'Ttree.GoogleMapEditor:GeoPointEditor':
             resource: resource://Ttree.GoogleMapEditor/Public/GeoPointEditor/Plugin.js
+        stylesheets:
+          'Ttree.GoogleMapEditor:GeoPointEditor':
+            resource: resource://Ttree.GoogleMapEditor/Public/GeoPointEditor/Plugin.css
 
     userInterface:
       translation:
